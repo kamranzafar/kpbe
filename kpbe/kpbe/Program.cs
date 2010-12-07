@@ -19,7 +19,8 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-
+using System.Reflection;
+	
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.IO;
 using Org.BouncyCastle.Crypto.Digests;
@@ -34,6 +35,7 @@ namespace org.xeustechnologies.crypto.kpbe
 		// Some constants
 		private const string DEFAULT_SALT="This is a long constant phrase used as salt to create PBE key";
 		private const int DEFAULT_ITERATIONS=2000;
+		private const int DEFAULT_KEY_SIZE=128;
 		
 		public static void Main(string[] args)
 		{
@@ -44,7 +46,7 @@ namespace org.xeustechnologies.crypto.kpbe
 			string output=null;
 			string type=null;
 			string digest=null;
-			int keySize=128;
+			int keySize=DEFAULT_KEY_SIZE;
 			int iterations=DEFAULT_ITERATIONS;
 
 			bool showHelp=false;
@@ -81,7 +83,6 @@ namespace org.xeustechnologies.crypto.kpbe
 				return;
 			}
 
-			DirectoryInfo odir=Directory.CreateDirectory(output);
 			Pbe pbe=new Pbe(algorithm.ToUpper(),digest, type, password.ToCharArray(),
 			                Utils.ToByteArray(salt), iterations,keySize);
 			
@@ -99,10 +100,12 @@ namespace org.xeustechnologies.crypto.kpbe
 					return;
 				}
 				
-				Stream ins=new FileStream(file, FileMode.Open);
-				Stream outs=new FileStream(odir.FullName+"/"+fi.Name, FileMode.Create);
-				
 				try{
+					DirectoryInfo odir=Directory.CreateDirectory(output);
+					
+					Stream ins=new FileStream(file, FileMode.Open);
+					Stream outs=new FileStream(odir.FullName+"/"+fi.Name, FileMode.Create);
+
 					CipherStream cipherStream=new CipherStream(ins,pbeCipher.createCipher(encrypt), null);
 
 					int ch;
@@ -112,22 +115,22 @@ namespace org.xeustechnologies.crypto.kpbe
 					}
 					
 					cipherStream.Close();
+					outs.Close();
 				}catch(CryptoException e){
 					Console.WriteLine("kpbe: Error: "+e.Message);
 				}catch(Exception e){
 					Console.WriteLine(e);
 				}
-				
-				outs.Close();
 			}
 		}
 
 		private static void ShowHelp (OptionSet p)
 		{
-			Console.WriteLine ("Usage: kpbe [OPTIONS]+ file(s)");
-			Console.WriteLine ("An opensource PBE utility for files.");
+			Console.WriteLine ("kpbe v-"+ Assembly.GetExecutingAssembly().GetName().Version+" opensource PBE utility for files.");
 			Console.WriteLine ("Based on encryption algorithms from bouncycastle.org");
-			Console.WriteLine ("Written by: Kamran");
+			Console.WriteLine ("Copyright 2010 Kamran");
+			Console.WriteLine ();
+			Console.WriteLine ("Usage: kpbe [OPTIONS]+ file(s)");
 			Console.WriteLine ();
 			Console.WriteLine ("Options:");
 			p.WriteOptionDescriptions (Console.Out);
