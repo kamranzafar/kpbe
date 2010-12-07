@@ -1,8 +1,19 @@
 ﻿/*
- * Created by SharpDevelop.
- * User: Kamran
- * Date: 07/12/2010
- * Time: 13:09
+ * kpbe is a password based file encryption utility
+ * Copyright (C) 2010 Kamran
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * 
  */
 using System;
@@ -21,20 +32,20 @@ namespace org.xeustechnologies.crypto.kpbe
 	class Program
 	{
 		// Some constants
-		private const string SALT="This is a long constant phrase used as salt to create PBE key";
-		private const int ITERATIONS=2000;
+		private const string DEFAULT_SALT="This is a long constant phrase used as salt to create PBE key";
+		private const int DEFAULT_ITERATIONS=2000;
 		
 		public static void Main(string[] args)
 		{
 			string password=null;
 			bool encrypt=false;
-			string salt=SALT;
+			string salt=DEFAULT_SALT;
 			string algorithm=null;
 			string output=null;
 			string type=null;
 			string digest=null;
 			int keySize=128;
-			int iterations=ITERATIONS;
+			int iterations=DEFAULT_ITERATIONS;
 
 			bool showHelp=false;
 

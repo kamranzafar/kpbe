@@ -1,10 +1,20 @@
 ﻿/*
- * Created by SharpDevelop.
- * User: Kamran
- * Date: 07/12/2010
- * Time: 13:30
+ * kpbe is a password based file encryption utility
+ * Copyright (C) 2010 Kamran
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  * 
- * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * 
  */
 using System;
 
@@ -18,7 +28,7 @@ using Org.BouncyCastle.Security;
 namespace org.xeustechnologies.crypto
 {
 	/// <summary>
-	/// Description of Pkcs12Pbe.
+	/// PKCS12 based encryption
 	/// </summary>
 	public class Pkcs12PbeCipher : BasePbeCipher
 	{
@@ -62,10 +72,10 @@ namespace org.xeustechnologies.crypto
 		private IDigest getDigest(){
 			if(pbe.Digest.Equals("SHA") || pbe.Digest.Equals("SHA1") || pbe.Digest.Equals("SHA-1")){
 				return new Sha1Digest();
-			}else if(pbe.Digest.Equals("SHA256")){
-				return new Sha256Digest();
 			}else if(pbe.Digest.Equals("SHA224")){
 				return new Sha224Digest();
+			}else if(pbe.Digest.Equals("SHA256")){
+				return new Sha256Digest();
 			}else if(pbe.Digest.Equals("SHA384")){
 				return new Sha384Digest();
 			}else if(pbe.Digest.Equals("SHA512")){
