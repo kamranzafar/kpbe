@@ -56,7 +56,7 @@ namespace org.xeustechnologies.crypto.kpbe
 			OptionSet p = new OptionSet () {
 				{"a|algo=","Encryption algorithm (AES, RC4, RC2, DES)",v=>algorithm=v},
 				{"m|mode=","Block cipher mode (NONE, CBC, CTR)",v=>mode=v},
-				{"b|padding=","Block Padding (NONE, PKCS7, ISO10126d2, ISO7816d4, X932, ZeroByte)",v=>padding=v},
+				{"b|padding=","Block padding (NONE, PKCS7, ISO10126d2, ISO7816d4, X932, ZEROBYTE)",v=>padding=v},
 				{"p|password=","Encryption password",v=>password=v},
 				{"k|keysize=","Key size",(int v)=>keySize=v},
 				{"d|digest=","Digest algorithm (SHA1, SHA224, SHA256, SHA384, SHA512, MD2, MD4, MD5)", v=>digest=v},
