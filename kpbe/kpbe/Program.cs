@@ -19,6 +19,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Reflection;
 	
 using Org.BouncyCastle.Crypto;
@@ -126,7 +127,7 @@ namespace org.xeustechnologies.crypto.kpbe
 
 		private static void ShowHelp (OptionSet p)
 		{
-			Console.WriteLine ("kpbe v-"+ Assembly.GetExecutingAssembly().GetName().Version+" opensource PBE utility for files.");
+			Console.WriteLine ("kpbe v-"+ConfigurationManager.AppSettings["version"]+" opensource PBE utility for files.");
 			Console.WriteLine ("Based on encryption algorithms from bouncycastle.org");
 			Console.WriteLine ("Copyright 2010 Kamran");
 			Console.WriteLine ();
