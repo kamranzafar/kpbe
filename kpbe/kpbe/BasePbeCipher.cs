@@ -18,7 +18,7 @@
  */
 using System;
 using Org.BouncyCastle.Crypto;
-namespace org.xeustechnologies.crypto
+namespace org.xeustechnologies.crypto.kpbe
 {
 	/// <summary>
 	/// Base PBE

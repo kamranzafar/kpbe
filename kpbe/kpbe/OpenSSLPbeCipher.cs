@@ -25,7 +25,7 @@ using Org.BouncyCastle.Crypto.Generators;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 
-namespace org.xeustechnologies.crypto
+namespace org.xeustechnologies.crypto.kpbe
 {
 	/// <summary>
 	/// Open SSL based encryption
@@ -54,7 +54,7 @@ namespace org.xeustechnologies.crypto
 			KeyParameter encKey = (KeyParameter) parameters.Parameters;
 
 			IBufferedCipher c;
-			if (pbe.BaseAlgorithm.Equals("RC4"))
+			if (pbe.BaseAlgorithm.Equals(Kpbe.Algorithms.RC4))
 			{
 				c = CipherUtilities.GetCipher(pbe.BaseAlgorithm);
 
@@ -62,7 +62,7 @@ namespace org.xeustechnologies.crypto
 			}
 			else
 			{
-				c = CipherUtilities.GetCipher(pbe.BaseAlgorithm + "/CBC/PKCS7Padding");
+				c = CipherUtilities.GetCipher(pbe.BaseAlgorithm + "/"+pbe.Mode+"/"+pbe.Padding);
 
 				c.Init(encrypt, parameters);
 			}

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasePbeCipher.cs" />
+    <Compile Include="Kpbe.cs" />
     <Compile Include="OpenSSLPbeCipher.cs" />
     <Compile Include="Pbe.cs" />
     <Compile Include="Pkcs12PbeCipher.cs" />

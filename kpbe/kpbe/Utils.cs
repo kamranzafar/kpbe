@@ -18,7 +18,7 @@
  */
 using System;
 
-namespace org.xeustechnologies.crypto
+namespace org.xeustechnologies.crypto.kpbe
 {
 	/// <summary>
 	/// Utility class

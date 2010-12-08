@@ -43,6 +43,8 @@ namespace org.xeustechnologies.crypto.kpbe
 			bool encrypt=false;
 			string salt=DEFAULT_SALT;
 			string algorithm=null;
+			string mode=null;
+			string padding=null;
 			string output=null;
 			string type=null;
 			string digest=null;
@@ -53,6 +55,8 @@ namespace org.xeustechnologies.crypto.kpbe
 
 			OptionSet p = new OptionSet () {
 				{"a|algo=","Encryption algorithm (AES, RC4, RC2, DES)",v=>algorithm=v},
+				{"m|mode=","Block cipher mode (NONE, CBC, CTR)",v=>mode=v},
+				{"b|padding=","Block Padding (NONE, PKCS7, ISO10126d2, ISO7816d4, X932, ZeroByte)",v=>padding=v},
 				{"p|password=","Encryption password",v=>password=v},
 				{"k|keysize=","Key size",(int v)=>keySize=v},
 				{"d|digest=","Digest algorithm (SHA1, SHA224, SHA256, SHA384, SHA512, MD2, MD4, MD5)", v=>digest=v},
@@ -83,12 +87,12 @@ namespace org.xeustechnologies.crypto.kpbe
 				return;
 			}
 
-			Pbe pbe=new Pbe(algorithm.ToUpper(),digest, type, password.ToCharArray(),
+			Pbe pbe=new Pbe(algorithm.ToUpper(), mode, padding, digest, password.ToCharArray(),
 			                Utils.ToByteArray(salt), iterations,keySize);
 			
 			BasePbeCipher pbeCipher=new Pkcs12PbeCipher(pbe);
 			
-			if(type!=null && type.ToUpper().Equals("OPENSSL")){
+			if(type!=null && type.ToUpper().Equals(Kpbe.Types.OPENSSL)){
 				pbeCipher=new OpenSSLPbeCipher(pbe);
 			}
 			

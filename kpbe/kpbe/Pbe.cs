@@ -18,12 +18,13 @@
  */
 using System;
 
-namespace org.xeustechnologies.crypto
+namespace org.xeustechnologies.crypto.kpbe
 {
 	public class Pbe
-	{
-		protected string algorithm;
+	{	
 		protected string baseAlgorithm;
+		protected string mode;
+		protected string padding;
 		protected string digest;
 		protected string type;
 		protected char[] password;
@@ -35,16 +36,19 @@ namespace org.xeustechnologies.crypto
 		public Pbe(){}
 		
 		public Pbe(string baseAlgorithm,
+		           string mode,
+		           string padding,
 		           string digest,
-		           string type,
 		           char[] password,
 		           byte[] salt,
 		           int iterations,
 		           int keySize)
 		{
 			this.baseAlgorithm=baseAlgorithm.ToUpper();
-			this.digest=digest==null?"SHA":digest.ToUpper();
-			this.type=type==null?"PKCS12":type.ToUpper();
+			this.mode=mode==null?Kpbe.Modes.CBC:mode.ToUpper();
+			this.padding=(padding==null?Kpbe.Paddings.PKCS7:
+			              padding.ToUpper().Equals(Kpbe.Paddings.NONE)?"No":padding)+"Padding";
+			this.digest=digest==null?Kpbe.Digests.SHA1:digest.ToUpper();
 			this.password=password;
 			this.salt=salt;
 			this.iterations=iterations;
@@ -54,29 +58,28 @@ namespace org.xeustechnologies.crypto
 		}
 		
 		private void init(){
-			if(baseAlgorithm.Equals("AES")){
-				if(type.ToUpper().Equals("OPENSSL")){
-					algorithm="PBEWITHMD5AND"+keySize+"BITAES-CBC-OPENSSL";
-				}else{
-					algorithm="PBEWith"+digest.ToUpper()+"And"+keySize+"BitAES-CBC-BC";
-				}
+			if(baseAlgorithm.Equals(Kpbe.Algorithms.AES)){
 				ivSize=128;
-			}else if(baseAlgorithm.Equals("RC4")){
-				algorithm="PBEWITHSHAAND"+keySize+"BITRC4";
+			}else if(baseAlgorithm.Equals(Kpbe.Algorithms.RC4)){
 				ivSize=0;
-			}else if(baseAlgorithm.Equals("RC2")){
-				algorithm="PBEWITHSHAAND"+keySize+"BITRC2-CBC";
+			}else if(baseAlgorithm.Equals(Kpbe.Algorithms.RC2)){
 				ivSize=64;
-			}else if(baseAlgorithm.Equals("DES")){
-				algorithm="PBEWITHSHAAND"+(keySize==192?3:2)+"-KEYTRIPLEDES-CBC";
+			}else if(baseAlgorithm.Equals(Kpbe.Algorithms.DES)){
 				baseAlgorithm="DESede";
 				ivSize=64;
+			}else if(baseAlgorithm.Equals(Kpbe.Algorithms.TWOFISH)){
+				ivSize=128;
+			}else if(baseAlgorithm.Equals(Kpbe.Algorithms.BLOWFISH)){
+				ivSize=64;
+			}else{
+				throw new ArgumentException("Algorithm ["+baseAlgorithm+"] not supported.");
 			}
-		}
-
-		public string Algorithm {
-			get { return algorithm; }
-			set { algorithm = value; }
+			
+			if(mode.Equals(Kpbe.Modes.CTR)){
+				padding="NoPadding";
+			}else if(!mode.Equals(Kpbe.Modes.NONE) && !mode.Equals(Kpbe.Modes.CBC)){
+				throw new ArgumentException("Mode ["+mode+"] not supported");
+			}
 		}
 		
 		public string BaseAlgorithm {
@@ -111,7 +114,17 @@ namespace org.xeustechnologies.crypto
 
 		public string Digest {
 			get { return digest; }
-			set { digest = value; }
+			set { digest = value.ToUpper(); }
+		}
+		
+		public string Mode {
+			get { return mode; }
+			set { mode = value; }
+		}
+		
+		public string Padding {
+			get { return padding; }
+			set { padding = value; }
 		}
 	}
 }
