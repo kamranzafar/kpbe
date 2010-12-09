@@ -20,7 +20,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Reflection;
-	
+
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.IO;
 using Org.BouncyCastle.Crypto.Digests;
@@ -55,7 +55,7 @@ namespace org.xeustechnologies.crypto.kpbe
 
 			OptionSet p = new OptionSet () {
 				{"a|algo=","Encryption algorithm (AES, RC4, RC2, DES, BLOWFISH, TWOFISH)",v=>algorithm=v},
-				{"m|mode=","Block cipher mode (NONE, CBC, CTR)",v=>mode=v},
+				{"m|mode=","Block cipher mode (NONE, CBC, CTR, CBF, OFB)",v=>mode=v},
 				{"b|padding=","Block padding (NONE, PKCS7, ISO10126d2, ISO7816d4, X932, ZEROBYTE)",v=>padding=v},
 				{"p|password=","Encryption password",v=>password=v},
 				{"k|keysize=","Key size",(int v)=>keySize=v},
@@ -87,13 +87,18 @@ namespace org.xeustechnologies.crypto.kpbe
 				return;
 			}
 
-			Pbe pbe=new Pbe(algorithm.ToUpper(), mode, padding, digest, password.ToCharArray(),
-			                Utils.ToByteArray(salt), iterations,keySize);
-			
-			BasePbeCipher pbeCipher=new Pkcs12PbeCipher(pbe);
-			
-			if(type!=null && type.ToUpper().Equals(Kpbe.Types.OPENSSL)){
-				pbeCipher=new OpenSSLPbeCipher(pbe);
+			BasePbeCipher pbeCipher=null;
+			try{
+				Pbe pbe=new Pbe(algorithm.ToUpper(), mode, padding, digest, password.ToCharArray(),
+				                Utils.ToByteArray(salt), iterations,keySize);
+				
+				pbeCipher=new Pkcs12PbeCipher(pbe);
+				if(type!=null && type.ToUpper().Equals(Kpbe.Types.OPENSSL)){
+					pbeCipher=new OpenSSLPbeCipher(pbe);
+				}
+			}catch(Exception e){
+				Console.WriteLine("kpbe: "+e.Message);
+				return;
 			}
 			
 			foreach(string file in files){
@@ -121,7 +126,7 @@ namespace org.xeustechnologies.crypto.kpbe
 					cipherStream.Close();
 					outs.Close();
 				}catch(CryptoException e){
-					Console.WriteLine("kpbe: Error: "+e.Message);
+					Console.WriteLine("kpbe: "+e.Message);
 				}catch(Exception e){
 					Console.WriteLine(e);
 				}

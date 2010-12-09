@@ -75,7 +75,7 @@ namespace org.xeustechnologies.crypto.kpbe
 				throw new ArgumentException("Algorithm ["+baseAlgorithm+"] not supported.");
 			}
 			
-			if(mode.Equals(Kpbe.Modes.CTR)){
+			if(mode.Equals(Kpbe.Modes.CTR) || mode.Equals(Kpbe.Modes.CFB) || mode.Equals(Kpbe.Modes.OFB)){
 				padding="NoPadding";
 			}else if(!mode.Equals(Kpbe.Modes.NONE) && !mode.Equals(Kpbe.Modes.CBC)){
 				throw new ArgumentException("Mode ["+mode+"] not supported");

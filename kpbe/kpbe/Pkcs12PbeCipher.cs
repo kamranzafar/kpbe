@@ -88,7 +88,7 @@ namespace org.xeustechnologies.crypto.kpbe
 				return new MD5Digest();
 			}
 			
-			return new Sha1Digest();
+			throw new ArgumentException("Message digest ["+pbe.Digest+"] not supported");
 		}
 	}
 }

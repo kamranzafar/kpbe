@@ -34,6 +34,8 @@ namespace org.xeustechnologies.crypto.kpbe
 			public static string NONE="NONE";
 			public static string CBC="CBC";
 			public static string CTR="CTR";
+			public static string CFB="CFB";
+			public static string OFB="OFB";
 		}
 		
 		public static class Paddings{
