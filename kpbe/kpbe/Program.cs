@@ -61,7 +61,7 @@ namespace org.xeustechnologies.crypto.kpbe
 				{"k|keysize=","Key size",(int v)=>keySize=v},
 				{"d|digest=","Digest algorithm (SHA1, SHA224, SHA256, SHA384, SHA512, MD2, MD4, MD5)", v=>digest=v},
 				{"s|salt=","Salt phrase",v=>salt=v},
-				{"i|interations=","Number of iterations",(int v)=>iterations=v},
+				{"i|iterations=","Number of iterations",(int v)=>iterations=v},
 				{"e|encrypt","Encrypt",v=>encrypt= v!= null},
 				{"t|type=","Type (PKCS12, OPENSSL)",v=>type=v},
 				{"o|output=","Output directory",v=>output=v},
