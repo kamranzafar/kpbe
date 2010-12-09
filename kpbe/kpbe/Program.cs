@@ -34,7 +34,7 @@ namespace org.xeustechnologies.crypto.kpbe
 	{
 		// Some constants
 		private const string DEFAULT_SALT="This is a long constant phrase used as salt to create PBE key";
-		private const int DEFAULT_ITERATIONS=2000;
+		private const int DEFAULT_ITERATIONS=100;
 		private const int DEFAULT_KEY_SIZE=128;
 		
 		public static void Main(string[] args)
