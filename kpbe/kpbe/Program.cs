@@ -127,6 +127,8 @@ namespace org.xeustechnologies.crypto.kpbe
 					outs.Close();
 				}catch(CryptoException e){
 					Console.WriteLine("kpbe: "+e.Message);
+				}catch(ArgumentException e){
+					Console.WriteLine("kpbe: "+e.Message);
 				}catch(Exception e){
 					Console.WriteLine(e);
 				}
