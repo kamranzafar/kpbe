@@ -1,8 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-# SharpDevelop 3.1.1.5327
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kpbe", "kpbe\kpbe.csproj", "{E7945386-9E6B-4808-8F52-7575425A55A2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kpbe", "kpbe\kpbe.csproj", "{45EAC596-18AF-48C5-8BE7-70B27EFFE6A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,9 +9,12 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E7945386-9E6B-4808-8F52-7575425A55A2}.Debug|x86.Build.0 = Debug|x86
-		{E7945386-9E6B-4808-8F52-7575425A55A2}.Debug|x86.ActiveCfg = Debug|x86
-		{E7945386-9E6B-4808-8F52-7575425A55A2}.Release|x86.Build.0 = Release|x86
-		{E7945386-9E6B-4808-8F52-7575425A55A2}.Release|x86.ActiveCfg = Release|x86
+		{45EAC596-18AF-48C5-8BE7-70B27EFFE6A5}.Debug|x86.ActiveCfg = Debug|x86
+		{45EAC596-18AF-48C5-8BE7-70B27EFFE6A5}.Debug|x86.Build.0 = Debug|x86
+		{45EAC596-18AF-48C5-8BE7-70B27EFFE6A5}.Release|x86.ActiveCfg = Release|x86
+		{45EAC596-18AF-48C5-8BE7-70B27EFFE6A5}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = kpbe\kpbe.csproj
 	EndGlobalSection
 EndGlobal
