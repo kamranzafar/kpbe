@@ -1,15 +1,3 @@
-Contents
---------
-
--   [Overview](#Overview)
--   [Examples](#Examples)
--   [Options](#Options)
--   [Requirements](#Requirements)
--   [Resources](#Resources)
--   [Comments](#Comments)
-
-* * * * *
-
 Overview
 --------
 
